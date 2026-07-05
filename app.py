@@ -15,17 +15,18 @@ st.markdown("### **Número de Cuenta:** 20211930058")
 st.write("Esta aplicación integra PCA para reducción de dimensionalidad, K-Means para agrupamiento y SVM para clasificación de dígitos manuscritos.")
 st.write("---")
 
-# --- CARGA DE MODELOS (Nombres mapeados exactamente a tu captura) ---
+# --- CARGA DE MODELOS (Rutas corregidas para la subcarpeta reduccion) ---
 @st.cache_resource
 def cargar_modelos():
     try:
-        pca = joblib.load("pca_mnist.pkl")
-        kmeans = joblib.load("kmeans_mnist.pkl")
-        svm = joblib.load("svm_mnist.pkl")
-        metadata = joblib.load("mnist_metadata.pkl")
+        # Añadimos el prefijo 'reduccion/' para conectar con tu estructura de GitHub
+        pca = joblib.load("reduccion/pca_mnist.pkl")
+        kmeans = joblib.load("reduccion/kmeans_mnist.pkl")
+        svm = joblib.load("reduccion/svm_mnist.pkl")
+        metadata = joblib.load("reduccion/mnist_metadata.pkl")
         return pca, kmeans, svm, metadata
     except Exception as e:
-        st.error(f"Error al cargar los archivos .pkl. Asegúrate de subirlos a la raíz de tu repositorio. Detalle: {e}")
+        st.error(f"Error al cargar los archivos .pkl. Ruta actual evaluada: 'reduccion/'. Detalle: {e}")
         return None, None, None, None
 
 pca, kmeans, svm, metadata = cargar_modelos()
